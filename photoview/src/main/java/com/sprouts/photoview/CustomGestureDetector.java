@@ -1,18 +1,21 @@
 /*
- Copyright 2011, 2012 Chris Banes.
- <p/>
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
- <p/>
- http://www.apache.org/licenses/LICENSE-2.0
- <p/>
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+ *
+ *  Copyright 2025 sprouts Clark.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
  */
+
 package com.sprouts.photoview;
 
 import android.content.Context;
@@ -21,8 +24,9 @@ import android.view.ScaleGestureDetector;
 import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
 
+
 /**
- * Does a whole lot of gesture detecting.
+ * The custom gesture detector.
  */
 class CustomGestureDetector {
 
@@ -40,6 +44,12 @@ class CustomGestureDetector {
     private final float mMinimumVelocity;
     private OnGestureListener mListener;
 
+    /**
+     * Instantiates a new Custom gesture detector.
+     *
+     * @param context  the context
+     * @param listener the listener
+     */
     CustomGestureDetector(Context context, OnGestureListener listener) {
         final ViewConfiguration configuration = ViewConfiguration
                 .get(context);
@@ -101,14 +111,30 @@ class CustomGestureDetector {
         }
     }
 
+    /**
+     * Is scaling boolean.
+     *
+     * @return the boolean
+     */
     public boolean isScaling() {
         return mDetector.isInProgress();
     }
 
+    /**
+     * Is dragging boolean.
+     *
+     * @return the boolean
+     */
     public boolean isDragging() {
         return mIsDragging;
     }
 
+    /**
+     * On touch event boolean.
+     *
+     * @param ev the ev
+     * @return the boolean
+     */
     public boolean onTouchEvent(MotionEvent ev) {
         try {
             mDetector.onTouchEvent(ev);

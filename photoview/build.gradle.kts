@@ -72,13 +72,13 @@ afterEvaluate {
                 version = "1.0.0"
 
                 // Adds javadocs and sources as separate jars.
-                artifact(tasks["androidJavadocsJar"])
-                artifact(tasks["sourceJar"])
+//                artifact(tasks["androidJavadocsJar"])
+//                artifact(tasks["sourceJar"])
 
                 pom {
                     name.set("PhotoView")
                     description.set("A simple ImageView that support zooming, both by Multi-touch gestures and double-tap.")
-                    url.set("https://github.com/Baseflow/PhotoView")
+                    url.set("https://github.com/sprouts-clark/PhotoView")
                     licenses {
                         license {
                             name = "The Apache License, Version 2.0"
@@ -94,10 +94,19 @@ afterEvaluate {
 
                     }
                     scm {
-                        connection.set("scm:git@github.com/chrisbanes/PhotoView.git")
-                        developerConnection.set("scm:git@github.com/chrisbanes/PhotoView.git")
-                        url.set("https://github.com/chrisbanes/PhotoView")
+                        connection.set("scm:git:git@github.com/sprouts-clark/PhotoView.git")
+                        developerConnection.set("scm:git:ssh//github.com:sprouts-clark/PhotoView.git")
+                        url.set("http://github.com/sprouts-clark/PhotoView/tree/main")
                     }
+                }
+            }
+        }
+        repositories {
+            maven {
+                url = uri("https://maven.pkg.github.com/sprouts-clark/PhotoView") // 替换为你的 Maven 仓库地址
+                credentials {
+                    username = "rfD16K2y" // 替换为你的仓库用户名
+                    password = "Z8x8ThUJXp9i8TO+jj35QO/191IxGkd98YtxJpsg+Y+N" // 替换为你的仓库密码
                 }
             }
         }
@@ -105,35 +114,86 @@ afterEvaluate {
 }
 
 
-tasks.register<Javadoc>("androidJavadocs") {
-    // 注册生成 Javadoc 的任务
-    source = files(android.sourceSets["main"].java.srcDirs).asFileTree
-    // 将 Android 的引导类路径添加到 Javadoc 类路径中
-    classpath += files(android.bootClasspath.joinToString(File.pathSeparator))
-    // 遍历所有库变体
-    android.libraryVariants.all { variant ->
-        if (variant.name == "release") {
-            classpath += variant.javaCompileProvider.get().classpath
-        }
-        true
-    }
-    exclude("**/R.html", "**/R.*.html", "**/index.html")
-}
+//tasks.register<Javadoc>("androidJavadocs") {
+//    // 注册生成 Javadoc 的任务
+//    source = files(android.sourceSets["main"].java.srcDirs).asFileTree
+//    // 将 Android 的引导类路径添加到 Javadoc 类路径中
+//    classpath += files(android.bootClasspath.joinToString(File.pathSeparator))
+//    // 遍历所有库变体
+//    android.libraryVariants.all { variant ->
+//        if (variant.name == "release") {
+//            classpath += variant.javaCompileProvider.get().classpath
+//        }
+//        true
+//    }
+//    exclude("**/R.html", "**/R.*.html", "**/index.html")
+//}
+//
+//
+//// 注册生成 Javadoc Jar 包的任务，依赖于 androidJavadocs 任务
+//tasks.register<Jar>("androidJavadocsJar") {
+//    dependsOn("androidJavadocs")
+//    // 设置归档文件的分类器
+//    archiveClassifier.set("javadoc")
+//    // 使用 tasks.named 获取类型安全的 Javadoc 任务引用
+//    from(tasks.named<Javadoc>("androidJavadocs").get().destinationDir)
+//}
+//
+//// 注册生成源文件 Jar 包的任务
+//tasks.register<Jar>("sourceJar") {
+//    // 指定 Jar 包的内容来源为 main 源集的 Java 源文件目录
+//    from(android.sourceSets["main"].java.srcDirs)
+//    // 设置归档文件的分类器
+//    archiveClassifier.set("sources")
+//}
 
 
-// 注册生成 Javadoc Jar 包的任务，依赖于 androidJavadocs 任务
-tasks.register<Jar>("androidJavadocsJar") {
-    dependsOn("androidJavadocs")
-    // 设置归档文件的分类器
-    archiveClassifier.set("javadoc")
-    // 使用 tasks.named 获取类型安全的 Javadoc 任务引用
-    from(tasks.named<Javadoc>("androidJavadocs").get().destinationDir)
-}
 
-// 注册生成源文件 Jar 包的任务
-tasks.register<Jar>("sourceJar") {
-    // 指定 Jar 包的内容来源为 main 源集的 Java 源文件目录
-    from(android.sourceSets["main"].java.srcDirs)
-    // 设置归档文件的分类器
-    archiveClassifier.set("sources")
-}
+//publishing {
+//    publications {
+//        create<MavenPublication>("release") {
+//            from(components["release"])
+//
+//            groupId = "io.github.sprouts-clark" // 替换为你的组织 ID
+//            artifactId = "PhotoView" // 替换为你的库名称
+//            version = "1.0.0"
+//
+//            pom {
+//                name.set("PhotoView")
+//                description.set("A simple ImageView that support zooming, both by Multi-touch gestures and double-tap.")
+//                url.set("https://github.com/sprouts-clark/PhotoView")
+//
+//                licenses {
+//                    license {
+//                        name.set("The Apache License, Version 2.0")
+//                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+//                    }
+//                }
+//
+//                developers {
+//                    developer {
+//                        id.set("sprouts-clark")
+//                        name.set("Clark")
+//                        email.set("caicai_1378@163.com")
+//                    }
+//                }
+//
+//                scm {
+//                    connection.set("scm:git:git://github.com/sprouts-clark/PhotoView.git")
+//                    developerConnection.set("scm:git:ssh://github.com/sprouts-clark/PhotoView.git")
+//                    url.set("https://github.com/sprouts-clark/PhotoView")
+//                }
+//            }
+//        }
+//    }
+//
+//    repositories {
+//        maven {
+//            url = uri("https://maven.pkg.github.com/sprouts-clark/PhotoView") // 替换为你的 Maven 仓库地址
+//            credentials {
+//                username = "rfD16K2y" // 替换为你的仓库用户名
+//                password = "Z8x8ThUJXp9i8TO+jj35QO/191IxGkd98YtxJpsg+Y+N" // 替换为你的仓库密码
+//            }
+//        }
+//    }
+//}

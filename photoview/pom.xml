@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.github.sprouts-clark</groupId>
+  <artifactId>PhotoView</artifactId>
+  <version>1.0.0</version>
+  <packaging>aar</packaging>
+
+  <name>PhotoView</name>
+  <description> simple ImageView that support zooming, both by Multi-touch gestures and double-tap.</description>
+  <url>http://github.com/sprouts-clark/PhotoView</url>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Sprouts-Clark</name>
+      <email>caicai__1378@163.com</email>
+      <organization>Sprouts</organization>
+      <organizationUrl>http://www.Sprouts.com</organizationUrl>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:git@github.com/sprouts-clark/PhotoView.git</connection>
+    <developerConnection>scm:git:ssh//github.com:sprouts-clark/PhotoView.git</developerConnection>
+    <url>http://github.com/sprouts-clark/PhotoView/tree/main</url>
+   </scm>
+
+
+</project>

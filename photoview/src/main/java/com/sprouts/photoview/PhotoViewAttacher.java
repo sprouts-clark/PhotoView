@@ -1,18 +1,22 @@
+
 /*
- Copyright 2011, 2012 Chris Banes.
- <p>
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
- <p>
- http://www.apache.org/licenses/LICENSE-2.0
- <p>
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+ *
+ *  Copyright 2025 sprouts Clark.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
  */
+
 package com.sprouts.photoview;
 
 import android.content.Context;
@@ -160,6 +164,11 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         }
     };
 
+    /**
+     * Instantiates a new Photo view attacher.
+     *
+     * @param imageView the image view
+     */
     public PhotoViewAttacher(ImageView imageView) {
         mImageView = imageView;
         imageView.setOnTouchListener(this);
@@ -254,28 +263,59 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         });
     }
 
+    /**
+     * Sets on double tap listener.
+     *
+     * @param newOnDoubleTapListener the new on double tap listener
+     */
     public void setOnDoubleTapListener(GestureDetector.OnDoubleTapListener newOnDoubleTapListener) {
         this.mGestureDetector.setOnDoubleTapListener(newOnDoubleTapListener);
     }
 
+    /**
+     * Sets on scale change listener.
+     *
+     * @param onScaleChangeListener the on scale change listener
+     */
     public void setOnScaleChangeListener(OnScaleChangedListener onScaleChangeListener) {
         this.mScaleChangeListener = onScaleChangeListener;
     }
 
+    /**
+     * Sets on single fling listener.
+     *
+     * @param onSingleFlingListener the on single fling listener
+     */
     public void setOnSingleFlingListener(OnSingleFlingListener onSingleFlingListener) {
         this.mSingleFlingListener = onSingleFlingListener;
     }
 
+    /**
+     * Is zoom enabled boolean.
+     *
+     * @return the boolean
+     */
     @Deprecated
     public boolean isZoomEnabled() {
         return mZoomEnabled;
     }
 
+    /**
+     * Gets display rect.
+     *
+     * @return the display rect
+     */
     public RectF getDisplayRect() {
         checkMatrixBounds();
         return getDisplayRect(getDrawMatrix());
     }
 
+    /**
+     * Sets display matrix.
+     *
+     * @param finalMatrix the final matrix
+     * @return the display matrix
+     */
     public boolean setDisplayMatrix(Matrix finalMatrix) {
         if (finalMatrix == null) {
             throw new IllegalArgumentException("Matrix cannot be null");
@@ -288,6 +328,11 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         return true;
     }
 
+    /**
+     * Sets base rotation.
+     *
+     * @param degrees the degrees
+     */
     public void setBaseRotation(final float degrees) {
         mBaseRotation = degrees % 360;
         update();
@@ -295,33 +340,68 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         checkAndDisplayMatrix();
     }
 
+    /**
+     * Sets rotation to.
+     *
+     * @param degrees the degrees
+     */
     public void setRotationTo(float degrees) {
         mSuppMatrix.setRotate(degrees % 360);
         checkAndDisplayMatrix();
     }
 
+    /**
+     * Sets rotation by.
+     *
+     * @param degrees the degrees
+     */
     public void setRotationBy(float degrees) {
         mSuppMatrix.postRotate(degrees % 360);
         checkAndDisplayMatrix();
     }
 
+    /**
+     * Gets minimum scale.
+     *
+     * @return the minimum scale
+     */
     public float getMinimumScale() {
         return mMinScale;
     }
 
+    /**
+     * Gets medium scale.
+     *
+     * @return the medium scale
+     */
     public float getMediumScale() {
         return mMidScale;
     }
 
+    /**
+     * Gets maximum scale.
+     *
+     * @return the maximum scale
+     */
     public float getMaximumScale() {
         return mMaxScale;
     }
 
+    /**
+     * Gets scale.
+     *
+     * @return the scale
+     */
     public float getScale() {
         return (float) Math.sqrt((float) Math.pow(getValue(mSuppMatrix, Matrix.MSCALE_X), 2) + (float) Math.pow
             (getValue(mSuppMatrix, Matrix.MSKEW_Y), 2));
     }
 
+    /**
+     * Gets scale type.
+     *
+     * @return the scale type
+     */
     public ScaleType getScaleType() {
         return mScaleType;
     }
@@ -390,25 +470,52 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         return handled;
     }
 
+    /**
+     * Sets allow parent intercept on edge.
+     *
+     * @param allow the allow
+     */
     public void setAllowParentInterceptOnEdge(boolean allow) {
         mAllowParentInterceptOnEdge = allow;
     }
 
+    /**
+     * Sets minimum scale.
+     *
+     * @param minimumScale the minimum scale
+     */
     public void setMinimumScale(float minimumScale) {
         Util.checkZoomLevels(minimumScale, mMidScale, mMaxScale);
         mMinScale = minimumScale;
     }
 
+    /**
+     * Sets medium scale.
+     *
+     * @param mediumScale the medium scale
+     */
     public void setMediumScale(float mediumScale) {
         Util.checkZoomLevels(mMinScale, mediumScale, mMaxScale);
         mMidScale = mediumScale;
     }
 
+    /**
+     * Sets maximum scale.
+     *
+     * @param maximumScale the maximum scale
+     */
     public void setMaximumScale(float maximumScale) {
         Util.checkZoomLevels(mMinScale, mMidScale, maximumScale);
         mMaxScale = maximumScale;
     }
 
+    /**
+     * Sets scale levels.
+     *
+     * @param minimumScale the minimum scale
+     * @param mediumScale  the medium scale
+     * @param maximumScale the maximum scale
+     */
     public void setScaleLevels(float minimumScale, float mediumScale, float maximumScale) {
         Util.checkZoomLevels(minimumScale, mediumScale, maximumScale);
         mMinScale = minimumScale;
@@ -416,38 +523,84 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         mMaxScale = maximumScale;
     }
 
+    /**
+     * Sets on long click listener.
+     *
+     * @param listener the listener
+     */
     public void setOnLongClickListener(OnLongClickListener listener) {
         mLongClickListener = listener;
     }
 
+    /**
+     * Sets on click listener.
+     *
+     * @param listener the listener
+     */
     public void setOnClickListener(View.OnClickListener listener) {
         mOnClickListener = listener;
     }
 
+    /**
+     * Sets on matrix change listener.
+     *
+     * @param listener the listener
+     */
     public void setOnMatrixChangeListener(OnMatrixChangedListener listener) {
         mMatrixChangeListener = listener;
     }
 
+    /**
+     * Sets on photo tap listener.
+     *
+     * @param listener the listener
+     */
     public void setOnPhotoTapListener(OnPhotoTapListener listener) {
         mPhotoTapListener = listener;
     }
 
+    /**
+     * Sets on outside photo tap listener.
+     *
+     * @param mOutsidePhotoTapListener the m outside photo tap listener
+     */
     public void setOnOutsidePhotoTapListener(OnOutsidePhotoTapListener mOutsidePhotoTapListener) {
         this.mOutsidePhotoTapListener = mOutsidePhotoTapListener;
     }
 
+    /**
+     * Sets on view tap listener.
+     *
+     * @param listener the listener
+     */
     public void setOnViewTapListener(OnViewTapListener listener) {
         mViewTapListener = listener;
     }
 
+    /**
+     * Sets on view drag listener.
+     *
+     * @param listener the listener
+     */
     public void setOnViewDragListener(OnViewDragListener listener) {
         mOnViewDragListener = listener;
     }
 
+    /**
+     * Sets scale.
+     *
+     * @param scale the scale
+     */
     public void setScale(float scale) {
         setScale(scale, false);
     }
 
+    /**
+     * Sets scale.
+     *
+     * @param scale   the scale
+     * @param animate the animate
+     */
     public void setScale(float scale, boolean animate) {
         setScale(scale,
             (mImageView.getRight()) / 2,
@@ -455,6 +608,14 @@ public class PhotoViewAttacher implements View.OnTouchListener,
             animate);
     }
 
+    /**
+     * Sets scale.
+     *
+     * @param scale   the scale
+     * @param focalX  the focal x
+     * @param focalY  the focal y
+     * @param animate the animate
+     */
     public void setScale(float scale, float focalX, float focalY,
         boolean animate) {
         // Check to see if the scale is within bounds
@@ -479,6 +640,11 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         mInterpolator = interpolator;
     }
 
+    /**
+     * Sets scale type.
+     *
+     * @param scaleType the scale type
+     */
     public void setScaleType(ScaleType scaleType) {
         if (Util.isSupportedScaleType(scaleType) && scaleType != mScaleType) {
             mScaleType = scaleType;
@@ -486,15 +652,28 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         }
     }
 
+    /**
+     * Is zoomable boolean.
+     *
+     * @return the boolean
+     */
     public boolean isZoomable() {
         return mZoomEnabled;
     }
 
+    /**
+     * Sets zoomable.
+     *
+     * @param zoomable the zoomable
+     */
     public void setZoomable(boolean zoomable) {
         mZoomEnabled = zoomable;
         update();
     }
 
+    /**
+     * Update.
+     */
     public void update() {
         if (mZoomEnabled) {
             // Update the base matrix using the current drawable
@@ -516,6 +695,8 @@ public class PhotoViewAttacher implements View.OnTouchListener,
 
     /**
      * Get the current support matrix
+     *
+     * @param matrix the matrix
      */
     public void getSuppMatrix(Matrix matrix) {
         matrix.set(mSuppMatrix);
@@ -527,10 +708,20 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         return mDrawMatrix;
     }
 
+    /**
+     * Gets image matrix.
+     *
+     * @return the image matrix
+     */
     public Matrix getImageMatrix() {
         return mDrawMatrix;
     }
 
+    /**
+     * Sets zoom transition duration.
+     *
+     * @param milliseconds the milliseconds
+     */
     public void setZoomTransitionDuration(int milliseconds) {
         this.mZoomDuration = milliseconds;
     }
@@ -731,6 +922,14 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         private final long mStartTime;
         private final float mZoomStart, mZoomEnd;
 
+        /**
+         * Instantiates a new Animated zoom runnable.
+         *
+         * @param currentZoom the current zoom
+         * @param targetZoom  the target zoom
+         * @param focalX      the focal x
+         * @param focalY      the focal y
+         */
         public AnimatedZoomRunnable(final float currentZoom, final float targetZoom,
             final float focalX, final float focalY) {
             mFocalX = focalX;
@@ -765,14 +964,30 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         private final OverScroller mScroller;
         private int mCurrentX, mCurrentY;
 
+        /**
+         * Instantiates a new Fling runnable.
+         *
+         * @param context the context
+         */
         public FlingRunnable(Context context) {
             mScroller = new OverScroller(context);
         }
 
+        /**
+         * Cancel fling.
+         */
         public void cancelFling() {
             mScroller.forceFinished(true);
         }
 
+        /**
+         * Fling.
+         *
+         * @param viewWidth  the view width
+         * @param viewHeight the view height
+         * @param velocityX  the velocity x
+         * @param velocityY  the velocity y
+         */
         public void fling(int viewWidth, int viewHeight, int velocityX,
             int velocityY) {
             final RectF rect = getDisplayRect();
